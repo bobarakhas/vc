@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static './apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static './favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static './favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static './site.webmanifest' %}">
+    {% block meta %}
+    {% endblock meta %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block title %}
+    <title>Vercel Crypto</title>
+    {% endblock title %}
+</head>
+
+<body>
+
+    <div class="hidden sm:flex flex-col fixed top-0 left-0 w-screen z-50 events-none overflow-hidden bg-zinc-900">
+        <div class="flex flex-col items-center gap-10 py-5">
+            <div class="flex items-center justify-between w-full px-7">
+                <img class="w-6 h-6 rotate-180"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8UlEQVR4nO3aWVJTQRiG4a7CaQXO8zIccFZElyIoOCuoOxEVnBXUhTjiAO5BQeMlr9WVvkhRnpjhnNPT91xxQSXd/5/wVoUYIyIiIiIiIiIiIiIi2QHeIFV53ckCdgGNyo6Qrz/A3k7fBXd8nzZBt7v5M7Qe+Ob7xAn5DmzoeAFuCad8nzohZ7safssSXvk+eQLmehq+W8BO4LfvG0Qe3j09L8At4ZbvW0Rssq/huwUoyHWFt80SFOTunSll+C1LmOvhELmaLXX4bgEKcl3hbbOEyQ4PkbOJSobvFrAO+Or7hgFbLC28bZZw0vctAzZc6fBbljDr+6YBelnL8N0CFOS6wttmCROrDpGzm7UO3y1AQa4rvG2WcMIdImfDXobfsoQX5Ou51+G7BezI9CPrBrDbhAC4QX6um1BkGORF+zG9CUlmQT5tQmSjRPqemVC5IP8iXY1gwlvExol0XTOhc0H+QnoWggtvEeA46RkyMQGeko4nJjbA9kSC3LDfGDcxstEifldNrFyQPxOvhWjCWwQ4RryGTApsxIjPY5OKCIPciDa8RYArxOOySQ2wBvhA+OaBtSZFwCCwQtiOmpTZuBGuRyZ1wGZgifAsA9tMDmzkCM8lk4sAgzyfbHiLAAcDCnLa4S0CPPQ9eWDG5IpmkH96HH4+4S0CXPS4gHGTO5pBfu9h+PmFN7AgH/F976AAMzUOf9r3fXMO8jKw1fd9gwSM17CAMd/3DD3I7yoc/ieF9/9LOFBRkO1jHq7npRQ5YLqCBTzwfa9oAJtKDrLC28MSxkpcwIVKXikpo7wgK7weg7yi8Pb/TrjfxwLu9fv82aMZ5B89DN/+33lL9gMsA3C+hwWMavglAQa6DPJHG3EtoETA/g6DbH/nkIZfAeBeBwuY0vD9BXlJ4a0YMNpmASNVP3/2aAb57T+Gb7/opfDWAdi3Ksj258HsX511AqZaFnBXw68ZsNEFWeH1BRgBznk7QO5oBnnA9zlERERExHTpL5e1ala1Wv1TAAAAAElFTkSuQmCC">
+                <div class="btn-group btn-group-scrollable">
+                    <button class="btn btn-active">Unavailable</button>
+                </div>
+                <div class="popover">
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-center justify-center bg-zinc-900 h-[90vh] w-screen">
+            <p class="font-semibold">We are really sorry for that!</p>
+            <p>Our app is currently only available for mobile device. Please continue using a mobile device to start exchanging crypto.</p>
+        </div>
+    </div>
+
+    <div class="mb-20">
+    {% block body %}
+    {% endblock body %}
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="flex flex-col items-center gap-10 py-5">
+    <div class="flex items-center justify-between w-full px-7">
+        <img class="w-6 h-6 rotate-180" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8UlEQVR4nO3aWVJTQRiG4a7CaQXO8zIccFZElyIoOCuoOxEVnBXUhTjiAO5BQeMlr9WVvkhRnpjhnNPT91xxQSXd/5/wVoUYIyIiIiIiIiIiIiIi2QHeIFV53ckCdgGNyo6Qrz/A3k7fBXd8nzZBt7v5M7Qe+Ob7xAn5DmzoeAFuCad8nzohZ7safssSXvk+eQLmehq+W8BO4LfvG0Qe3j09L8At4ZbvW0Rssq/huwUoyHWFt80SFOTunSll+C1LmOvhELmaLXX4bgEKcl3hbbOEyQ4PkbOJSobvFrAO+Or7hgFbLC28bZZw0vctAzZc6fBbljDr+6YBelnL8N0CFOS6wttmCROrDpGzm7UO3y1AQa4rvG2WcMIdImfDXobfsoQX5Ou51+G7BezI9CPrBrDbhAC4QX6um1BkGORF+zG9CUlmQT5tQmSjRPqemVC5IP8iXY1gwlvExol0XTOhc0H+QnoWggtvEeA46RkyMQGeko4nJjbA9kSC3LDfGDcxstEifldNrFyQPxOvhWjCWwQ4RryGTApsxIjPY5OKCIPciDa8RYArxOOySQ2wBvhA+OaBtSZFwCCwQtiOmpTZuBGuRyZ1wGZgifAsA9tMDmzkCM8lk4sAgzyfbHiLAAcDCnLa4S0CPPQ9eWDG5IpmkH96HH4+4S0CXPS4gHGTO5pBfu9h+PmFN7AgH/F976AAMzUOf9r3fXMO8jKw1fd9gwSM17CAMd/3DD3I7yoc/ieF9/9LOFBRkO1jHq7npRQ5YLqCBTzwfa9oAJtKDrLC28MSxkpcwIVKXikpo7wgK7weg7yi8Pb/TrjfxwLu9fv82aMZ5B89DN/+33lL9gMsA3C+hwWMavglAQa6DPJHG3EtoETA/g6DbH/nkIZfAeBeBwuY0vD9BXlJ4a0YMNpmASNVP3/2aAb57T+Gb7/opfDWAdi3Ksj258HsX511AqZaFnBXw68ZsNEFWeH1BRgBznk7QO5oBnnA9zlERERExHTpL5e1ala1Wv1TAAAAAElFTkSuQmCC">
+        <div class="btn-group btn-group-scrollable">
+            <button class="btn btn-active">Wallet</button>
+            <a href="/withdraw/">
+                <button class="btn rounded-s-none" disabled>Withdraw</button>
+            </a>
+        </div>
+        <div class="popover">
+            <label class="popover-trigger" tabindex="0">
+                <img class="w-6 h-6" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlElEQVR4nO3QMQqDMBiG4WweQkcPUw/T0NXr1aXQpZnVJZ5B17cUEpql0vwxoLQvOAnfk0SpnwmogcF9dQ6g5V275XABaHdyXw+cX/9SxyvA8LkHUKac3KyMh0j8TYDLF+M+LQHuEcBNAiwRwCwBolJ/4HhPdNyADnldbuCacrMxGBrFQyvAFAA2B9A4xAKnzYHd9gQPy7XS22t6lQAAAABJRU5ErkJggg==">
+            </label>
+            <div class="popover-content popover-bottom-left" tabindex="0">
+                <div class="popover-arrow"></div>
+                <div class="p-4 text-sm">No new notifications</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col items-center gap-2">
+        <h1 class="text-5xl font-bold">${{balance.usd.total}}</h1>
+        <p class="text-gray-400">Multi-coin Wallet</p>
+    </div>
+
+    <div class="flex justify-evenly w-full">
+        <a href="/send/">
+            <div class="flex flex-col gap-2 items-center">
+                <button class="btn btn-primary rounded-full w-[4rem] h-[4rem] text-3xl">&uarr;</button>
+                <p>Send</p>
+            </div>
+        </a>
+        <a href="/receive/">
+            <div class="flex flex-col gap-2 items-center">
+                <button class="btn btn-primary rounded-full w-[4rem] h-[4rem] text-3xl">&darr;</button>
+                <p>Receive</p>
+            </div>
+        </a>
+        <div class="flex flex-col gap-2 items-center">
+            <button class="btn btn-primary rounded-full w-[4rem] h-[4rem] text-3xl">+</button>
+            <p>Purchase</p>
+        </div>
+    </div>
+</div>
+
+<div class="divider m-3 py-0 px-2"></div>
+
+<div class="flex flex-col flex-grow gap-2 overflow-scroll pb-20">
+    
+    <div class="flex items-center justify-between bg-zinc-800 py-5 px-4 mx-2 rounded-lg">
+        <div class="flex flex-row items-center gap-3">
+            <div class="avatar w-15 h-15">
+                <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032" alt="avatar" />
+            </div>
+            <div class="flex flex-col">
+                <p class="text-xl font-semibold">BTC</p>
+                <p class="text-slate-400 text-xs">{{balance.uncleared.btc}} BTC (U)</p>
+            </div>
+        </div>
+        <div class="flex flex-col items-end">
+            <p>{{balance.cleared.btc}} BTC</p>
+            <p class="text-slate-400">${{balance.usd.btc}}</p>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-between bg-zinc-800 py-5 px-4 mx-2 rounded-lg">
+        <div class="flex flex-row items-center gap-3">
+            <div class="avatar w-15 h-15">
+                <img src="https://w7.pngwing.com/pngs/268/1013/png-transparent-ethereum-eth-hd-logo-thumbnail.png" alt="avatar" />
+            </div>
+            <div class="flex flex-col">
+                <p class="text-xl font-semibold">ETH</p>
+                <p class="text-slate-400 text-xs">{{balance.uncleared.eth}} ETH (U)</p>
+            </div>
+        </div>
+        <div class="flex flex-col items-end">
+            <p>{{balance.cleared.eth}} ETH</p>
+            <p class="text-slate-400">${{balance.usd.eth}}</p>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-between bg-zinc-800 py-5 px-4 mx-2 rounded-lg">
+        <div class="flex flex-row items-center gap-3">
+            <div class="avatar w-15 h-15">
+                <img src="https://logowik.com/content/uploads/images/monero-coin-xmr5832.jpg" alt="avatar" />
+            </div>
+            <div class="flex flex-col">
+                <p class="text-xl font-semibold">XMR</p>
+                <p class="text-slate-400 text-xs">{{balance.uncleared.xmr}} XMR (U)</p>
+            </div>
+        </div>
+        <div class="flex flex-col items-end">
+            <p>{{balance.cleared.xmr}} XMR</p>
+            <p class="text-slate-400">${{balance.usd.xmr}}</p>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-between bg-zinc-800 py-5 px-4 mx-2 rounded-lg">
+        <div class="flex flex-row items-center gap-3">
+            <div class="avatar w-15 h-15">
+                <img src="https://cryptologos.cc/logos/litecoin-ltc-logo.png" alt="avatar" />
+            </div>
+            <div class="flex flex-col">
+                <p class="text-xl font-semibold">LTC</p>
+                <p class="text-slate-400 text-xs">{{balance.uncleared.ltc}} LTC (U)</p>
+            </div>
+        </div>
+        <div class="flex flex-col items-end">
+            <p>{{balance.cleared.ltc}} LTC</p>
+            <p class="text-slate-400">${{balance.usd.ltc}}</p>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+{% include 'navbar.html' %}
+{% endblock body %}

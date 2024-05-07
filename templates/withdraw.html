@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="flex flex-col items-center gap-10 py-5">
+    <div class="flex items-center justify-between w-full px-7">
+        <img class="w-6 h-6 rotate-180"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8UlEQVR4nO3aWVJTQRiG4a7CaQXO8zIccFZElyIoOCuoOxEVnBXUhTjiAO5BQeMlr9WVvkhRnpjhnNPT91xxQSXd/5/wVoUYIyIiIiIiIiIiIiIi2QHeIFV53ckCdgGNyo6Qrz/A3k7fBXd8nzZBt7v5M7Qe+Ob7xAn5DmzoeAFuCad8nzohZ7safssSXvk+eQLmehq+W8BO4LfvG0Qe3j09L8At4ZbvW0Rssq/huwUoyHWFt80SFOTunSll+C1LmOvhELmaLXX4bgEKcl3hbbOEyQ4PkbOJSobvFrAO+Or7hgFbLC28bZZw0vctAzZc6fBbljDr+6YBelnL8N0CFOS6wttmCROrDpGzm7UO3y1AQa4rvG2WcMIdImfDXobfsoQX5Ou51+G7BezI9CPrBrDbhAC4QX6um1BkGORF+zG9CUlmQT5tQmSjRPqemVC5IP8iXY1gwlvExol0XTOhc0H+QnoWggtvEeA46RkyMQGeko4nJjbA9kSC3LDfGDcxstEifldNrFyQPxOvhWjCWwQ4RryGTApsxIjPY5OKCIPciDa8RYArxOOySQ2wBvhA+OaBtSZFwCCwQtiOmpTZuBGuRyZ1wGZgifAsA9tMDmzkCM8lk4sAgzyfbHiLAAcDCnLa4S0CPPQ9eWDG5IpmkH96HH4+4S0CXPS4gHGTO5pBfu9h+PmFN7AgH/F976AAMzUOf9r3fXMO8jKw1fd9gwSM17CAMd/3DD3I7yoc/ieF9/9LOFBRkO1jHq7npRQ5YLqCBTzwfa9oAJtKDrLC28MSxkpcwIVKXikpo7wgK7weg7yi8Pb/TrjfxwLu9fv82aMZ5B89DN/+33lL9gMsA3C+hwWMavglAQa6DPJHG3EtoETA/g6DbH/nkIZfAeBeBwuY0vD9BXlJ4a0YMNpmASNVP3/2aAb57T+Gb7/opfDWAdi3Ksj258HsX511AqZaFnBXw68ZsNEFWeH1BRgBznk7QO5oBnnA9zlERERExHTpL5e1ala1Wv1TAAAAAElFTkSuQmCC">
+        <div class="btn-group btn-group-scrollable">
+            <a href="/wallet/">
+                <button class="btn rounded-e-none">Wallet</button>
+            </a>
+            <button class="btn btn-active">Withdraw</button>
+        </div>
+        <div class="popover">
+            <label class="popover-trigger" tabindex="0">
+                <img class="w-6 h-6"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlElEQVR4nO3QMQqDMBiG4WweQkcPUw/T0NXr1aXQpZnVJZ5B17cUEpql0vwxoLQvOAnfk0SpnwmogcF9dQ6g5V275XABaHdyXw+cX/9SxyvA8LkHUKac3KyMh0j8TYDLF+M+LQHuEcBNAiwRwCwBolJ/4HhPdNyADnldbuCacrMxGBrFQyvAFAA2B9A4xAKnzYHd9gQPy7XS22t6lQAAAABJRU5ErkJggg==">
+            </label>
+            <div class="popover-content popover-bottom-left" tabindex="0">
+                <div class="popover-arrow"></div>
+                <div class="p-4 text-sm">No new notifications</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if connection|length > 0 %}
+<p class="text-xl font-semibold m-3">Your wallets</p>
+
+{% for key, value in connection.items %}
+<a href="/sendto/{{value.slug}}/">
+    <div class="flex flex-row items-center gap-5 bg-zinc-800 p-3 m-3 box-border rounded-xl">
+        <img class="w-7 h-7" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACY0lEQVR4nO3YTWoUQRiH8TcbMWTc5AhGSEY3opDVbIM7XYcYcBcVLyKCRxBPEJez0QMk8RbqCQx+LOIjDRWQQKf6o8p3qvr/g9kMzbxV9UyaSZuJiIiIiIiIiMhkUa6l1YCyLax0lG1ppaN8CysZ5VtayajDwkpFHZZWKuqxsBJ5n1rtFMCZAjhTAGcK4EwBnCmAMwVwpgDOFMCZAjhTAGerEOAEeA5sAxvhtRPeO6VyngG+A/vA2jWz14CDcG2VvAI0B/owOjxorgXOqZDFZJq7Hx18BfCUCllMpnt+620ncjs6ozJdNp7aUXRoC+Allemy6dS2o0NbhF9HVemy6dQ2okNbADMq02XTqc2iQ1sAt8YOt8ySr4fVugXNxw4fOrvHGtOuh/RejNjcq7HDh87usca066Gyn6GWWfL1kMfBgI0dphg89GB7rDPteqjsUYRllnw95HMeHi/EHsYdpnwOlPrAx55X8g8c4Cz8hzv/53H0PLz3OfUwBZCV+wuYNFMAXwowwQC/gI/Aa+AZsAvcBjaBG+G1Gd7bDdc0134CflOZ/xXgAjgGHo98GDcDngAfwmcWL3eAP8C75ts89NDbAFvA+zCjWF02OtQXYM8yAx4B3yhUrgDN4W/lPvxLwB3ga5INj9T3oJJ/IPADuJt7o1cB94CfCgBvzAnwVgHgvmOABwoANx0DrE8+gNfhX1IAZ0z9V1DuDcYw9QDSjwI4UwBnCuBMAZwpgDMFcKYAzhTAmQI4UwBnClB7gNKfNZnz+ShAhAJkpgDOFMCZAjhTAGcKMPUAIiIiIiIiIiJitfoLjOVaRCQeM/wAAAAASUVORK5CYII=">
+        <div class="flex flex-col">
+            <p class="font-semibold text-lg">{{value.wallet}}</p>
+            <p class="text-slate-400">{{value.address}}</p>
+        </div>
+    </div>
+</a>
+{% endfor %}
+
+{% else %}
+<p class="text-xl font-semibold m-3">Your wallets</p>
+<div class="flex items-center justify-center py-5">
+    <p class="text-md text-zinc-500 font-semibold m-3 w-1/2 text-center">You do not have any wallets connected.</p>
+</div>
+{% endif %}
+
+<div class="divider mx-5"></div>
+
+<p class="text-xl font-semibold m-3">Connect another wallet</p>
+<div class="flex flex-col flex-grow gap-2 overflow-scroll pb-20">
+
+    <div class="grid grid-cols-3 gap-3 p-5">
+
+        <a href="/connect/btc.com_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-auto h-10" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032" alt="avatar" />
+                <p class="text-center text-slate-300">BTC.com Wallet</p>
+            </label>
+        </a>
+
+        <a href="/connect/trust_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-auto h-10" src="https://seeklogo.com/images/T/trust-wallet-token-twt-logo-5312F3331F-seeklogo.com.png" alt="avatar" />
+                <p class="text-center text-slate-300">Trust Wallet</p>
+            </label>
+        </a>
+
+        <a href="/connect/metamask_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-auto h-10" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/metamask-icon.png" alt="avatar" />
+                <p class="text-center text-slate-300">Metamask</p>
+            </label>
+        </a>
+
+        <a href="/connect/coinbase_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-auto h-10" src="https://cdn.iconscout.com/icon/free/png-256/free-coinbase-9420774-7651204.png" alt="avatar" />
+                <p class="text-center text-slate-300">Coinbase</p>
+            </label>
+        </a>
+
+        <a href="/connect/crypto.com_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-auto h-10" src="https://altcoinsbox.com/wp-content/uploads/2023/01/crypto.com-logo.png" alt="avatar" />
+                <p class="text-center text-slate-300">Crypto.com Wallet</p>
+            </label>
+        </a>
+
+        <a href="/connect/electrum_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-auto h-10" src="https://seeklogo.com/images/E/electrum-wallet-logo-A49C1E9246-seeklogo.com.png" alt="avatar" />
+                <p class="text-center text-slate-300">Electrum</p>
+            </label>
+        </a>
+
+        <a href="/connect/trezor_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-auto h-10" src="https://crypto-central.io/library/uploads/Trezor-Logo-300x300.png" alt="avatar" />
+                <p class="text-center text-slate-300">Trezor</p>
+            </label>
+        </a>
+
+        <a href="/connect/cake_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-10 h-10 rounded-full" src="https://avatars.githubusercontent.com/u/38265490?v=4" alt="avatar" />
+                <p class="text-center text-slate-300">Cake Wallet</p>
+            </label>
+        </a>
+    </div>
+</div>
+
+
+
+{% include 'navbar.html' %}
+{% endblock body %}

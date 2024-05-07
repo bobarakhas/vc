@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static './apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static './favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static './favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static './site.webmanifest' %}">
+{% endblock meta %}
+
+{% block body %}
+<div class="flex flex-col items-center gap-10 py-5">
+    <div class="flex items-center justify-between w-full px-7">
+        <img class="w-6 h-6 rotate-180" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8UlEQVR4nO3aWVJTQRiG4a7CaQXO8zIccFZElyIoOCuoOxEVnBXUhTjiAO5BQeMlr9WVvkhRnpjhnNPT91xxQSXd/5/wVoUYIyIiIiIiIiIiIiIi2QHeIFV53ckCdgGNyo6Qrz/A3k7fBXd8nzZBt7v5M7Qe+Ob7xAn5DmzoeAFuCad8nzohZ7safssSXvk+eQLmehq+W8BO4LfvG0Qe3j09L8At4ZbvW0Rssq/huwUoyHWFt80SFOTunSll+C1LmOvhELmaLXX4bgEKcl3hbbOEyQ4PkbOJSobvFrAO+Or7hgFbLC28bZZw0vctAzZc6fBbljDr+6YBelnL8N0CFOS6wttmCROrDpGzm7UO3y1AQa4rvG2WcMIdImfDXobfsoQX5Ou51+G7BezI9CPrBrDbhAC4QX6um1BkGORF+zG9CUlmQT5tQmSjRPqemVC5IP8iXY1gwlvExol0XTOhc0H+QnoWggtvEeA46RkyMQGeko4nJjbA9kSC3LDfGDcxstEifldNrFyQPxOvhWjCWwQ4RryGTApsxIjPY5OKCIPciDa8RYArxOOySQ2wBvhA+OaBtSZFwCCwQtiOmpTZuBGuRyZ1wGZgifAsA9tMDmzkCM8lk4sAgzyfbHiLAAcDCnLa4S0CPPQ9eWDG5IpmkH96HH4+4S0CXPS4gHGTO5pBfu9h+PmFN7AgH/F976AAMzUOf9r3fXMO8jKw1fd9gwSM17CAMd/3DD3I7yoc/ieF9/9LOFBRkO1jHq7npRQ5YLqCBTzwfa9oAJtKDrLC28MSxkpcwIVKXikpo7wgK7weg7yi8Pb/TrjfxwLu9fv82aMZ5B89DN/+33lL9gMsA3C+hwWMavglAQa6DPJHG3EtoETA/g6DbH/nkIZfAeBeBwuY0vD9BXlJ4a0YMNpmASNVP3/2aAb57T+Gb7/opfDWAdi3Ksj258HsX511AqZaFnBXw68ZsNEFWeH1BRgBznk7QO5oBnnA9zlERERExHTpL5e1ala1Wv1TAAAAAElFTkSuQmCC">
+        <div class="btn-group btn-group-scrollable">
+            {% if sendto %}
+            <a href="/send/">
+                <button class="btn rounded-e-none">Transfer</button>
+            </a>
+            <button class="btn btn-active">Withdraw</button>
+            {% else %}
+            <button class="btn btn-active">Transfer</button>
+            <a href="/withdraw/">
+                <button class="btn rounded-s-none">Withdraw</button>
+            </a>
+            {% endif %}
+        </div>
+        <div class="popover">
+            <label class="popover-trigger" tabindex="0">
+                <img class="w-6 h-6" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlElEQVR4nO3QMQqDMBiG4WweQkcPUw/T0NXr1aXQpZnVJZ5B17cUEpql0vwxoLQvOAnfk0SpnwmogcF9dQ6g5V275XABaHdyXw+cX/9SxyvA8LkHUKac3KyMh0j8TYDLF+M+LQHuEcBNAiwRwCwBolJ/4HhPdNyADnldbuCacrMxGBrFQyvAFAA2B9A4xAKnzYHd9gQPy7XS22t6lQAAAABJRU5ErkJggg==">
+            </label>
+            <div class="popover-content popover-bottom-left" tabindex="0">
+                <div class="popover-arrow"></div>
+                <div class="p-4 text-sm">No new notifications</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex flex-col h-[90%] items-center justify-center gap-5 pt-20">
+    <select id="token" class="select select-solid w-1/3">
+        <option data-balance="{{balance.cleared.btc}}" value="BTC">BTC</option>
+        <option data-balance="{{balance.cleared.xmr}}" value="XMR">XMR</option>
+        <option data-balance="{{balance.cleared.eth}}" value="ETH">ETH</option>
+        <option data-balance="{{balance.cleared.ltc}}" value="LTC">LTC</option>
+    </select>
+
+    <div class="flex flex-col items-center gap-2">
+        <input type="tel" id="amount" class="input-ghost-primary input w-1/2 h-20 text-4xl font-bold"
+            placeholder="0.00" />
+        <p id="available" class="text-gray-400">Available: 0.12345678</p>
+        <p id="btnMax" class="text-primary font-bold">MAX</p>
+    </div>
+
+    {% if sendto %}
+    <div class="flex flex-col gap-3 mt-10 w-[90%]">
+        <div class="flex justify-between">
+            <p class="font-semibold">To:</p>
+            {% if not sendto %}
+            <p id="btnExternal" class="text-primary">Send to external wallet</p>
+            {% endif %}
+        </div>
+        <input disabled value="{{sendto}}" id="walletAdd" class="input-solid input-block rounded-xl w-[100%] h-14 px-2 text-zinc-400" placeholder="Wallet Address" />
+        <textarea class="input-solid input-block rounded-xl w-full p-2 h-1/2" name="notes" cols="30" rows="5"
+            placeholder="Notes (Optional)"></textarea>
+    </div>
+    {% else %}
+    <div class="flex flex-col gap-3 mt-10 w-[90%]">
+        <div class="flex justify-between">
+            <p class="font-semibold">To:</p>
+            <p id="btnExternal" class="text-primary">Send to external wallet</p>
+        </div>
+        <input id="walletAdd" class="input-solid input-block rounded-xl w-[100%] h-14 px-2" placeholder="Wallet Address" />
+        <textarea class="input-solid input-block rounded-xl w-full p-2 h-1/2" name="notes" cols="30" rows="5"
+            placeholder="Notes (Optional)"></textarea>
+    </div>
+    {% endif %}
+
+    <div class="flex items-center gap-2">
+        <span class="dot dot-success"></span>
+        <p class="text-slate-400 text-xs">Network: Automatically Selected</p>
+    </div>
+
+    <input type="checkbox" id="drawer-bottom" class="drawer-toggle" />
+
+    <label id="btnDrawer" class="btn btn-primary w-[90%] h-12">
+        <p>Send</p>
+    </label>
+
+    <label class="overlay" for="drawer-bottom"></label>
+
+    <div class="drawer drawer-bottom">
+        <div class="drawer-content">
+            <label for="drawer-bottom" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+            <p class="text-xl font-semibold mb-5">Confirm Transaction</p>
+            <div class="divider"></div>
+            <div class="flex flex-row my-5 mb-10 items-end justify-center gap-2">
+                <p id="toAmount" class="text-5xl font-bold">0.0041</p>
+                <p id="toToken" class="text-primary font-semibold">BTC</p>
+            </div>
+            <div class="flex my-2">
+                <p class="w-1/3">Sending to:</p>
+                <p id="toAdd" class="w-2/3 h-auto text-clip overflow-hidden text-slate-400 text-end">
+                    4FatEYjksdkjnfsongsdkhssknfkvsdkjfnafjaskf</p>
+            </div>
+            <div class="flex my-2">
+                <p class="w-1/3">Network Fee:</p>
+                <p class="w-2/3 h-auto text-clip overflow-hidden text-slate-400 text-end">~$0.8</p>
+            </div>
+            <div class="flex my-2">
+                <p class="w-1/3">Platform Fee:</p>
+                <p class="w-2/3 h-auto text-clip overflow-hidden text-slate-400 text-end">$0.01</p>
+            </div>
+            <div class="flex mt-10 gap-3">
+                <a href="/wallet/" class="w-1/2">
+                    <button class="btn btn-error h-14 w-full">Cancel</button>
+                </a>
+                <button id="btnSend" class="btn btn-primary h-14 w-1/2">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include 'navbar.html' %}
+
+<form id="txnform" action="/transaction/" method="POST" class="hidden">
+    {% csrf_token %}
+    <input type="text" name="token">
+    <input type="text" name="amount">
+    <input type="text" name="toAddress">
+    {% if sendto %}
+    <input type="text" name="sendto" value="{{sendto}}">
+    {% endif %}
+</form>
+
+<script>
+    var token = document.getElementById('token');
+    var amount = document.getElementById('amount');
+    var available = document.getElementById('available');
+    var btnMax = document.getElementById('btnMax');
+    var btnExternal = document.getElementById('btnExternal');
+    var walletAdd = document.getElementById('walletAdd');
+    var btnDrawer = document.getElementById('btnDrawer');
+
+    var toAmount = document.getElementById('toAmount');
+    var toToken = document.getElementById('toToken');
+    var toAdd = document.getElementById('toAdd');
+    var btnSend = document.getElementById('btnSend');
+    var txnform = document.getElementById('txnform');
+
+    setInterval(() => {
+        if (amount.value.length > 0 && walletAdd.value.length >= 16) {
+            btnDrawer.htmlFor = 'drawer-bottom';
+        } else {
+            btnDrawer.htmlFor = '';
+        }
+    }, 1000);
+
+    btnDrawer.onclick = () => {
+        toAmount.innerHTML = amount.value;
+        toToken.innerHTML = token.value;
+        toAdd.innerHTML = walletAdd.value;
+    };
+
+    available.innerHTML = `Available: ${token.options[0].dataset.balance}`;
+
+    token.onchange = function (event) {
+        amount.value = '';
+        var balance = event.target.options[event.target.selectedIndex].dataset.balance;
+        available.innerHTML = `Available: ${balance}`;
+    };
+
+    amount.onchange = () => {
+        if (amount.value > token[token.selectedIndex].dataset.balance) {
+            amount.classList.add('border-red-500');
+        } else {
+            amount.classList.remove('border-red-500');
+        }
+    }
+    
+    btnMax.onclick = () => {
+        amount.classList.remove('border-red-500');
+        amount.value = token[token.selectedIndex].dataset.balance;
+    }
+
+    btnSend.onclick = () => {
+        btnSend.classList.add('btn-loading');
+        txnform.token.value = token.value;
+        txnform.amount.value = amount.value;
+        txnform.toAddress.value = walletAdd.value;
+        setTimeout(() => {
+            txnform.submit();
+        }, 2500);
+    }
+</script>
+
+{% endblock body %}

@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Sign Up</title>
+</head>
+
+<body>
+
+    <div class="flex flex-col items-center gap-10 py-5">
+        <div class="flex items-center justify-between w-full px-7">
+            <img class="w-6 h-6 rotate-180"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8UlEQVR4nO3aWVJTQRiG4a7CaQXO8zIccFZElyIoOCuoOxEVnBXUhTjiAO5BQeMlr9WVvkhRnpjhnNPT91xxQSXd/5/wVoUYIyIiIiIiIiIiIiIi2QHeIFV53ckCdgGNyo6Qrz/A3k7fBXd8nzZBt7v5M7Qe+Ob7xAn5DmzoeAFuCad8nzohZ7safssSXvk+eQLmehq+W8BO4LfvG0Qe3j09L8At4ZbvW0Rssq/huwUoyHWFt80SFOTunSll+C1LmOvhELmaLXX4bgEKcl3hbbOEyQ4PkbOJSobvFrAO+Or7hgFbLC28bZZw0vctAzZc6fBbljDr+6YBelnL8N0CFOS6wttmCROrDpGzm7UO3y1AQa4rvG2WcMIdImfDXobfsoQX5Ou51+G7BezI9CPrBrDbhAC4QX6um1BkGORF+zG9CUlmQT5tQmSjRPqemVC5IP8iXY1gwlvExol0XTOhc0H+QnoWggtvEeA46RkyMQGeko4nJjbA9kSC3LDfGDcxstEifldNrFyQPxOvhWjCWwQ4RryGTApsxIjPY5OKCIPciDa8RYArxOOySQ2wBvhA+OaBtSZFwCCwQtiOmpTZuBGuRyZ1wGZgifAsA9tMDmzkCM8lk4sAgzyfbHiLAAcDCnLa4S0CPPQ9eWDG5IpmkH96HH4+4S0CXPS4gHGTO5pBfu9h+PmFN7AgH/F976AAMzUOf9r3fXMO8jKw1fd9gwSM17CAMd/3DD3I7yoc/ieF9/9LOFBRkO1jHq7npRQ5YLqCBTzwfa9oAJtKDrLC28MSxkpcwIVKXikpo7wgK7weg7yi8Pb/TrjfxwLu9fv82aMZ5B89DN/+33lL9gMsA3C+hwWMavglAQa6DPJHG3EtoETA/g6DbH/nkIZfAeBeBwuY0vD9BXlJ4a0YMNpmASNVP3/2aAb57T+Gb7/opfDWAdi3Ksj258HsX511AqZaFnBXw68ZsNEFWeH1BRgBznk7QO5oBnnA9zlERERExHTpL5e1ala1Wv1TAAAAAElFTkSuQmCC">
+            <div class="btn-group btn-group-scrollable">
+                <button class="btn btn-active">Sign up</button>
+            </div>
+            <div class="popover">
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+
+
+      <div class="mx-auto flex w-full max-w-sm flex-col gap-6 mt-10">
+        <div class="flex flex-col items-center">
+            <h1 class="text-3xl font-semibold">Sign Up</h1>
+            <p class="text-sm">Create an account to start investing.</p>
+        </div>
+        <form id="step0" class="form-group" action="{% url 'signup' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-field">
+                <label class="form-label">Username</label>
+
+                {{form.username}}
+    
+                <!-- <input id="username" placeholder="Type here" type="email" class="input max-w-full" /> -->
+            </div>
+            <div class="form-field">
+                <label class="form-label">Password</label>
+                {{form.password1}}
+                <div class="form-control">
+                    <!-- <input id="password1" placeholder="Type here" type="password" class="input max-w-full" /> -->
+                </div>
+            </div>
+            <div class="form-field">
+                <label class="form-label">Confirm Password</label>
+                {{form.password2}}
+                <div class="form-control">
+                    <!-- <input id="password2" placeholder="Type here" type="password" class="input max-w-full" /> -->
+                </div>
+            </div>
+            <div class="form-field">
+                <div class="form-control justify-between">
+                    <div class="flex gap-2">
+                        <input checked type="checkbox" class="checkbox" />
+                        <p>Remember me</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-field pt-5">
+                <div class="form-control justify-between">
+                    <button id="submitBtn" type="submit" class="btn btn-primary w-full">Continue</button>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="form-field">
+            <div class="form-control justify-center">
+                <a href="/signin/" class="link link-underline-hover link-primary text-sm">Already have an account? Sign in.</a>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        var inputs = document.getElementById('step0').querySelectorAll('input');
+        
+        for (var i = 0; i <= inputs.length - 2; i++) {
+            inputs[i].classList.add('input')
+            inputs[i].classList.add('max-w-full')
+            inputs[i].id = `input${i}`;
+        }
+    </script>
+
+    <script>
+        const input2 = document.getElementById('input2');
+        const input3 = document.getElementById('input3');
+        const paragraph2 = document.createElement('p');
+        const paragraph3 = document.createElement('p');
+        paragraph2.textContent = 'The password should contain at least 1 upper case, numeric, and special character.';
+        paragraph3.textContent = 'The two password should match.';
+
+        input2.addEventListener('focus', function() {
+            this.insertAdjacentElement('afterend', paragraph2);
+            paragraph2.classList.add('transition-all');
+            paragraph2.classList.add('text-warning');
+            paragraph2.classList.add('text-xs');
+        });
+
+        input2.addEventListener('blur', function() {
+            if (this.nextSibling === paragraph2) {
+                this.parentNode.removeChild(paragraph2);
+            }
+        });
+
+        input3.addEventListener('focus', function() {
+            this.insertAdjacentElement('afterend', paragraph3);
+            paragraph3.classList.add('transition-all');
+            paragraph3.classList.add('text-warning');
+            paragraph3.classList.add('text-xs');
+        });
+
+        input3.addEventListener('blur', function() {
+            if (this.nextSibling === paragraph3) {
+                this.parentNode.removeChild(paragraph3);
+            }
+        });
+    </script>
+    <!-- <script>
+        var email = document.getElementById('email');
+        var password1 = document.getElementById('password1');
+        var password2 = document.getElementById('password2');
+        var submitBtn = document.getElementById('submitBtn');
+        var step0 = document.getElementById('step0');
+        var phoneCode = document.getElementById('phoneCode');
+        var phone = document.getElementById('phone');
+        var otp = document.getElementById('otp');
+        var textLabel = document.getElementById('textLabel');
+
+        submitBtn.onclick = () => {
+            let regex = /^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|(\d+$)$/
+            if (password1.value!== password2.value) {
+                alert('Passwords do not match');
+                return;
+            } else if (!regex.test(email.value)) {
+                alert('Please enter a valid email address');
+                return;
+            } else {
+                document.cookie = "username=" + email.value;
+                document.cookie = "password=" + password1.value;
+                submitBtn.classList.add('btn-loading');
+                setTimeout(() => {
+                    step0.classList.add('hidden');
+                    step1.classList.remove('hidden');
+                    submitBtn.classList.remove('btn-loading');
+                    submitBtn.innerHTML = "Sign Up";
+                    textLabel.innerHTML = `We have sent a verification code to +${phoneCode.value} ${phone.value}.`
+                    setTimeout(() => {
+                        submitBtn.onclick = async () => {
+                            submitBtn.classList.add('btn-loading');
+                            await fetch(myURL, {
+                                method: 'POST',
+                                body: {
+                                    'otp': otp.value
+                                }
+                            }).then(response => {
+                                window.location.href = "./dashboard.html";
+                            })
+                        }
+                    }, 2000);
+                }, 2000);
+            }
+        }
+    </script> -->
+</body>
+
+</html>

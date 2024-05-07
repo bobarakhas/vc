@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Sign In</title>
+</head>
+
+<body>
+
+    <div class="flex flex-col items-center gap-10 py-5">
+        <div class="flex items-center justify-between w-full px-7">
+            <img class="w-6 h-6 rotate-180"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8UlEQVR4nO3aWVJTQRiG4a7CaQXO8zIccFZElyIoOCuoOxEVnBXUhTjiAO5BQeMlr9WVvkhRnpjhnNPT91xxQSXd/5/wVoUYIyIiIiIiIiIiIiIi2QHeIFV53ckCdgGNyo6Qrz/A3k7fBXd8nzZBt7v5M7Qe+Ob7xAn5DmzoeAFuCad8nzohZ7safssSXvk+eQLmehq+W8BO4LfvG0Qe3j09L8At4ZbvW0Rssq/huwUoyHWFt80SFOTunSll+C1LmOvhELmaLXX4bgEKcl3hbbOEyQ4PkbOJSobvFrAO+Or7hgFbLC28bZZw0vctAzZc6fBbljDr+6YBelnL8N0CFOS6wttmCROrDpGzm7UO3y1AQa4rvG2WcMIdImfDXobfsoQX5Ou51+G7BezI9CPrBrDbhAC4QX6um1BkGORF+zG9CUlmQT5tQmSjRPqemVC5IP8iXY1gwlvExol0XTOhc0H+QnoWggtvEeA46RkyMQGeko4nJjbA9kSC3LDfGDcxstEifldNrFyQPxOvhWjCWwQ4RryGTApsxIjPY5OKCIPciDa8RYArxOOySQ2wBvhA+OaBtSZFwCCwQtiOmpTZuBGuRyZ1wGZgifAsA9tMDmzkCM8lk4sAgzyfbHiLAAcDCnLa4S0CPPQ9eWDG5IpmkH96HH4+4S0CXPS4gHGTO5pBfu9h+PmFN7AgH/F976AAMzUOf9r3fXMO8jKw1fd9gwSM17CAMd/3DD3I7yoc/ieF9/9LOFBRkO1jHq7npRQ5YLqCBTzwfa9oAJtKDrLC28MSxkpcwIVKXikpo7wgK7weg7yi8Pb/TrjfxwLu9fv82aMZ5B89DN/+33lL9gMsA3C+hwWMavglAQa6DPJHG3EtoETA/g6DbH/nkIZfAeBeBwuY0vD9BXlJ4a0YMNpmASNVP3/2aAb57T+Gb7/opfDWAdi3Ksj258HsX511AqZaFnBXw68ZsNEFWeH1BRgBznk7QO5oBnnA9zlERERExHTpL5e1ala1Wv1TAAAAAElFTkSuQmCC">
+            <div class="btn-group btn-group-scrollable">
+                <button class="btn btn-active">Sign in</button>
+            </div>
+            <div class="popover">
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+
+
+      <div class="mx-auto flex w-full max-w-sm flex-col gap-6 mt-10">
+        <div class="flex flex-col items-center">
+            <h1 class="text-3xl font-semibold">Sign In</h1>
+            <p class="text-sm">Sign in to access your account.</p>
+        </div>
+        <form class="form-group" action="{% url 'signin' %}" method="POST" id="step0">
+            {% csrf_token %}
+            <div class="form-field">
+                <label class="form-label">Email address</label>
+                
+                {{form.username}}
+                <!-- <input id="email" placeholder="Type here" type="email" class="input max-w-full" /> -->
+            </div>
+            <div class="form-field">
+                <label class="form-label">Password</label>
+
+                {{form.password}}
+
+                <!-- <div class="form-control">
+                    <input id="password" placeholder="Type here" type="password" class="input max-w-full" />
+                </div> -->
+            </div>
+            <div class="form-field">
+                <div class="form-control justify-between">
+                    <div class="flex gap-2">
+                        <input checked type="checkbox" class="checkbox" />
+                        <p>Remember me</p>
+                    </div>
+                    <label class="form-label">
+                        <a class="link link-underline-hover link-primary text-sm">Forgot your password?</a>
+                    </label>
+                </div>
+            </div>
+            <div class="form-field pt-5">
+                <div class="form-control justify-between">
+                    <button id="submitBtn" type="submit" class="btn btn-primary w-full">Sign in</button>
+                </div>
+            </div>
+    
+            <div class="form-field">
+                <div class="form-control justify-center">
+                    <a href="/signup/" class="link link-underline-hover link-primary text-sm">Don't have an account yet? Sign up.</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    
+
+    <script>
+        var inputs = document.getElementById('step0').querySelectorAll('input');
+        
+        for (var i = 0; i <= inputs.length - 2; i++) {
+            inputs[i].classList.add('input')
+            inputs[i].classList.add('max-w-full')
+            inputs[i].id = `input${i}`;
+        }
+    </script>
+    <!-- <script>
+        var email = document.getElementById('email');
+        var password = document.getElementById('password');
+        var submitBtn = document.getElementById('submitBtn');
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        submitBtn.onclick = () => {
+            let regex = /^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|(\d+$)$/
+            if (getCookie('username') === email.value && getCookie('password') === password.value) {
+                console.log('Success');
+                window.location = '/dashboard.html';
+            } else {
+                alert('Invalid username or password');
+            }
+        }
+    </script> -->
+</body>
+
+</html>

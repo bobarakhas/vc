@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static './apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static './favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static './favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static './site.webmanifest' %}">
+{% endblock meta %}
+
+{% block body %}
+
+<div class="flex flex-col items-center justify-center py-10">
+    <img class="w-20 h-20" src="data:image/png;base64,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">
+    <div class="flex flex-row my-5 items-end justify-center gap-2">
+        <p class="text-3xl font-bold">{{transaction.amount}}</p>
+        <p class="text-primary font-semibold">{{transaction.token}}</p>
+    </div>
+    <p class="text-slate-400">Transaction Successful</p>
+    <p class="text-xl font-semibold">Transaction Details:</p>
+    <div class="flex flex-col bg-zinc-800 p-5 m-5 rounded-lg w-[90%]">
+        <p>Sent to:</p>
+        <p class="text-slate-400">{{transaction.address}}</p>
+        
+        <div class="divider"></div>
+        
+        <p>Confirmations:</p>
+        <p class="text-slate-400">10/3</p>
+        
+        <div class="divider"></div>
+
+        <p>Txn Hash:</p>
+        <p class="text-slate-400">{{transaction.txnhash}}</p>
+
+        <div class="divider"></div>
+
+        <p>TXN ID:</p>
+        <p class="text-slate-400">{{transaction.txnid}}</p>
+
+        <div class="divider"></div>
+
+        <p>Date:</p>
+        <p class="text-slate-400">{{transaction.date}}</p>
+    </div>
+    <a href="/wallet/" class="w-[90%]">
+        <button class="btn btn-primary w-full h-14">Continue</button>
+    </a>
+</div>
+
+{% include 'navbar.html' %}
+
+{% endblock body %}

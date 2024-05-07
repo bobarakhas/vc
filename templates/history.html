@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static './apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static './favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static './favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static './site.webmanifest' %}">
+{% endblock meta %}
+
+{% block body %}
+<div class="flex flex-col items-center gap-10 py-5">
+    <div class="flex items-center justify-between w-full px-7">
+        <img class="w-6 h-6 rotate-180" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8UlEQVR4nO3aWVJTQRiG4a7CaQXO8zIccFZElyIoOCuoOxEVnBXUhTjiAO5BQeMlr9WVvkhRnpjhnNPT91xxQSXd/5/wVoUYIyIiIiIiIiIiIiIi2QHeIFV53ckCdgGNyo6Qrz/A3k7fBXd8nzZBt7v5M7Qe+Ob7xAn5DmzoeAFuCad8nzohZ7safssSXvk+eQLmehq+W8BO4LfvG0Qe3j09L8At4ZbvW0Rssq/huwUoyHWFt80SFOTunSll+C1LmOvhELmaLXX4bgEKcl3hbbOEyQ4PkbOJSobvFrAO+Or7hgFbLC28bZZw0vctAzZc6fBbljDr+6YBelnL8N0CFOS6wttmCROrDpGzm7UO3y1AQa4rvG2WcMIdImfDXobfsoQX5Ou51+G7BezI9CPrBrDbhAC4QX6um1BkGORF+zG9CUlmQT5tQmSjRPqemVC5IP8iXY1gwlvExol0XTOhc0H+QnoWggtvEeA46RkyMQGeko4nJjbA9kSC3LDfGDcxstEifldNrFyQPxOvhWjCWwQ4RryGTApsxIjPY5OKCIPciDa8RYArxOOySQ2wBvhA+OaBtSZFwCCwQtiOmpTZuBGuRyZ1wGZgifAsA9tMDmzkCM8lk4sAgzyfbHiLAAcDCnLa4S0CPPQ9eWDG5IpmkH96HH4+4S0CXPS4gHGTO5pBfu9h+PmFN7AgH/F976AAMzUOf9r3fXMO8jKw1fd9gwSM17CAMd/3DD3I7yoc/ieF9/9LOFBRkO1jHq7npRQ5YLqCBTzwfa9oAJtKDrLC28MSxkpcwIVKXikpo7wgK7weg7yi8Pb/TrjfxwLu9fv82aMZ5B89DN/+33lL9gMsA3C+hwWMavglAQa6DPJHG3EtoETA/g6DbH/nkIZfAeBeBwuY0vD9BXlJ4a0YMNpmASNVP3/2aAb57T+Gb7/opfDWAdi3Ksj258HsX511AqZaFnBXw68ZsNEFWeH1BRgBznk7QO5oBnnA9zlERERExHTpL5e1ala1Wv1TAAAAAElFTkSuQmCC">
+        <div class="btn-group btn-group-scrollable">
+            <button class="btn btn-active">History</button>
+        </div>
+        <div class="popover">
+            <label class="popover-trigger" tabindex="0">
+                <img class="w-6 h-6" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlElEQVR4nO3QMQqDMBiG4WweQkcPUw/T0NXr1aXQpZnVJZ5B17cUEpql0vwxoLQvOAnfk0SpnwmogcF9dQ6g5V275XABaHdyXw+cX/9SxyvA8LkHUKac3KyMh0j8TYDLF+M+LQHuEcBNAiwRwCwBolJ/4HhPdNyADnldbuCacrMxGBrFQyvAFAA2B9A4xAKnzYHd9gQPy7XS22t6lQAAAABJRU5ErkJggg==">
+            </label>
+            <div class="popover-content popover-bottom-left" tabindex="0">
+                <div class="popover-arrow"></div>
+                <div class="p-4 text-sm">No new notifications</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if transactions|length > 0 %}
+<p class="text-xl font-semibold m-3">This month</p>
+{% else %}
+<div class="flex items-center justify-center py-10">
+    <p class="text-md text-zinc-500 font-semibold m-3 w-1/2 text-center">You do not have any transactions yet.</p>
+</div>
+{% endif %}
+
+<div class="flex flex-col flex-grow gap-2 overflow-scroll pb-20">
+
+    {% for transaction in transactions %}
+
+    {% if transaction.token == 'BTC' %}
+    <a href="/transaction/{{transaction.id}}/">
+        <div class="flex items-center justify-between bg-zinc-800 py-5 px-4 mx-2 rounded-lg">
+            <div class="flex flex-row items-center gap-3">
+                <div class="avatar w-15 h-15">
+                    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032" alt="avatar" />
+                </div>
+                <div class="flex flex-col">
+                    <p class="text-xl font-semibold">BTC</p>
+                    <p class="text-slate-400 text-xs">{{transaction.date.date}}</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-end">
+                {% if '-' in transaction.amount %}
+                <p class="text-error/90 font-semibold">{{transaction.amount|floatformat:8}} BTC</p>
+                {% else %}
+                <p class="text-success/90 font-semibold">{{transaction.amount|floatformat:8}} BTC</p>
+                {% endif %}
+                <p class="text-slate-400">{% widthratio transaction.amount 1 usd.btc %} USD</p>
+            </div>
+        </div>
+    </a>
+
+    {% elif transaction.token == 'ETH' %}
+    <a href="/transaction/{{transaction.id}}/">
+        <div class="flex items-center justify-between bg-zinc-800 py-5 px-4 mx-2 rounded-lg">
+            <div class="flex flex-row items-center gap-3">
+                <div class="avatar w-15 h-15">
+                    <img src="https://w7.pngwing.com/pngs/268/1013/png-transparent-ethereum-eth-hd-logo-thumbnail.png" alt="avatar" />
+                </div>
+                <div class="flex flex-col">
+                    <p class="text-xl font-semibold">ETH</p>
+                    <p class="text-slate-400 text-xs">{{transaction.date.date}}</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-end">
+                {% if '-' in transaction.amount %}
+                <p class="text-error/90 font-semibold">{{transaction.amount|floatformat:8}} ETH</p>
+                {% else %}
+                <p class="text-success/90 font-semibold">{{transaction.amount|floatformat:8}} ETH</p>
+                {% endif %}
+                <p class="text-slate-400">{% widthratio transaction.amount 1 usd.eth %} USD</p>
+            </div>
+        </div>
+    </a>
+
+    {% elif transaction.token == 'XMR' %}
+    <a href="/transaction/{{transaction.id}}/">
+        <div class="flex items-center justify-between bg-zinc-800 py-5 px-4 mx-2 rounded-lg">
+            <div class="flex flex-row items-center gap-3">
+                <div class="avatar w-15 h-15">
+                    <img src="https://logowik.com/content/uploads/images/monero-coin-xmr5832.jpg" alt="avatar" />
+                </div>
+                <div class="flex flex-col">
+                    <p class="text-xl font-semibold">XMR</p>
+                    <p class="text-slate-400 text-xs">{{transaction.date.date}}</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-end">
+                {% if '-' in transaction.amount %}
+                <p class="text-error/90 font-semibold">{{transaction.amount|floatformat:8}} XMR</p>
+                {% else %}
+                <p class="text-success/90 font-semibold">{{transaction.amount|floatformat:8}} XMR</p>
+                {% endif %}
+                <p class="text-slate-400">{% widthratio transaction.amount 1 usd.xmr %} USD</p>
+            </div>
+        </div>
+    </a>
+
+    {% elif transaction.token == 'LTC' %}
+    <a href="/transaction/{{transaction.id}}/">
+        <div class="flex items-center justify-between bg-zinc-800 py-5 px-4 mx-2 rounded-lg">
+            <div class="flex flex-row items-center gap-3">
+                <div class="avatar w-15 h-15">
+                    <img src="https://cryptologos.cc/logos/litecoin-ltc-logo.png" alt="avatar" />
+                </div>
+                <div class="flex flex-col">
+                    <p class="text-xl font-semibold">LTC</p>
+                    <p class="text-slate-400 text-xs">{{transaction.date.date}}</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-end">
+                {% if '-' in transaction.amount %}
+                <p class="text-error/90 font-semibold">{{transaction.amount|floatformat:8}} LTC</p>
+                {% else %}
+                <p class="text-success/90 font-semibold">{{transaction.amount|floatformat:8}} LTC</p>
+                {% endif %}
+                <p class="text-slate-400">{% widthratio transaction.amount 1 usd.ltc %} USD</p>
+            </div>
+        </div>
+    </a>
+    {% endif %}
+
+    {% endfor %}
+
+</div>
+
+
+
+{% include 'navbar.html' %}
+{% endblock body %}

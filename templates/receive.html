@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static './apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static './favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static './favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static './site.webmanifest' %}">
+{% endblock meta %}
+
+{% block body %}
+<div class="flex flex-col items-center gap-10 py-5">
+    <div class="flex items-center justify-between w-full px-7">
+        <img class="w-6 h-6 rotate-180"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8UlEQVR4nO3aWVJTQRiG4a7CaQXO8zIccFZElyIoOCuoOxEVnBXUhTjiAO5BQeMlr9WVvkhRnpjhnNPT91xxQSXd/5/wVoUYIyIiIiIiIiIiIiIi2QHeIFV53ckCdgGNyo6Qrz/A3k7fBXd8nzZBt7v5M7Qe+Ob7xAn5DmzoeAFuCad8nzohZ7safssSXvk+eQLmehq+W8BO4LfvG0Qe3j09L8At4ZbvW0Rssq/huwUoyHWFt80SFOTunSll+C1LmOvhELmaLXX4bgEKcl3hbbOEyQ4PkbOJSobvFrAO+Or7hgFbLC28bZZw0vctAzZc6fBbljDr+6YBelnL8N0CFOS6wttmCROrDpGzm7UO3y1AQa4rvG2WcMIdImfDXobfsoQX5Ou51+G7BezI9CPrBrDbhAC4QX6um1BkGORF+zG9CUlmQT5tQmSjRPqemVC5IP8iXY1gwlvExol0XTOhc0H+QnoWggtvEeA46RkyMQGeko4nJjbA9kSC3LDfGDcxstEifldNrFyQPxOvhWjCWwQ4RryGTApsxIjPY5OKCIPciDa8RYArxOOySQ2wBvhA+OaBtSZFwCCwQtiOmpTZuBGuRyZ1wGZgifAsA9tMDmzkCM8lk4sAgzyfbHiLAAcDCnLa4S0CPPQ9eWDG5IpmkH96HH4+4S0CXPS4gHGTO5pBfu9h+PmFN7AgH/F976AAMzUOf9r3fXMO8jKw1fd9gwSM17CAMd/3DD3I7yoc/ieF9/9LOFBRkO1jHq7npRQ5YLqCBTzwfa9oAJtKDrLC28MSxkpcwIVKXikpo7wgK7weg7yi8Pb/TrjfxwLu9fv82aMZ5B89DN/+33lL9gMsA3C+hwWMavglAQa6DPJHG3EtoETA/g6DbH/nkIZfAeBeBwuY0vD9BXlJ4a0YMNpmASNVP3/2aAb57T+Gb7/opfDWAdi3Ksj258HsX511AqZaFnBXw68ZsNEFWeH1BRgBznk7QO5oBnnA9zlERERExHTpL5e1ala1Wv1TAAAAAElFTkSuQmCC">
+        <div class="btn-group btn-group-scrollable">
+            <button class="btn btn-active">Wallets</button>
+        </div>
+        <div class="popover">
+            <label class="popover-trigger" tabindex="0">
+                <img class="w-6 h-6"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlElEQVR4nO3QMQqDMBiG4WweQkcPUw/T0NXr1aXQpZnVJZ5B17cUEpql0vwxoLQvOAnfk0SpnwmogcF9dQ6g5V275XABaHdyXw+cX/9SxyvA8LkHUKac3KyMh0j8TYDLF+M+LQHuEcBNAiwRwCwBolJ/4HhPdNyADnldbuCacrMxGBrFQyvAFAA2B9A4xAKnzYHd9gQPy7XS22t6lQAAAABJRU5ErkJggg==">
+            </label>
+            <div class="popover-content popover-bottom-left" tabindex="0">
+                <div class="popover-arrow"></div>
+                <div class="p-4 text-sm">No new notifications</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex flex-col border border-primary bg-primary/20 rounded-xl p-3 m-4">
+    <p class="font-semibold text-sm">NOTE</p>
+    <p class="text-sm text-slate-400">Users outside of Vercel Finance&#xae; will not be able to send crypto to this wallet. If you wish to send crypto outside Vercel Finance&#xae;, please <a href="" class="kbd">click here.</a></p>
+</div>
+
+<div class="flex flex-col h-[90%] items-center justify-center gap-5 pt-20">
+    <select id="token" class="select select-solid w-1/3">
+        <option data-address="{{wallets.btc}}" value="BTC">BTC</option>
+        <option data-address="{{wallets.xmr}}" value="XMR">XMR</option>
+        <option data-address="{{wallets.eth}}" value="ETH">ETH</option>
+        <option data-address="{{wallets.ltc}}" value="LTC">LTC</option>
+    </select>
+
+    <div id="cryptoChange" class="flex flex-col items-center gap-2">
+        <img class="rounded-full w-10 h-10" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032" alt="avatar" />
+        <p class="text-5xl font-bold">BTC</p>
+    </div>
+
+
+    <div class="flex items-center justify-center w-full box-border">
+        <input id="addressCopy" disabled value="{{wallets.btc}}" type="text" class="input input-solid rounded-e-none w-[70%] h-12">
+        <button id="btnCopy" class="btn btn-primary rounded-s-none w-[20%] h-12">Copy</button>
+    </div>
+
+
+{% include 'navbar.html' %}
+
+<form id="txnform" action="/transaction/" method="POST" class="hidden">
+    {% csrf_token %}
+    <input type="text" name="token">
+    <input type="text" name="amount">
+    <input type="text" name="toAddress">
+</form>
+
+<script>
+    var token = document.getElementById('token');
+    var cryptoChange = document.getElementById('cryptoChange');
+    var addressCopy = document.getElementById('addressCopy');
+    var btnCopy = document.getElementById('btnCopy');
+
+    token.onchange = function (event) {
+        var address = event.target.options[event.target.selectedIndex].dataset.address;
+        addressCopy.value = address;
+
+        if (token.value === 'BTC') {
+            cryptoChange.innerHTML = '<img class="rounded-full w-10 h-10" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032" alt="avatar" /> <p class="text-5xl font-bold">BTC</p>'
+        } else if (token.value === 'XMR') {
+            cryptoChange.innerHTML = '<img class="rounded-full w-10 h-10" src="https://logowik.com/content/uploads/images/monero-coin-xmr5832.jpg" alt="avatar" /> <p class="text-5xl font-bold">XMR</p>'
+        } else if (token.value === 'ETH') {
+            cryptoChange.innerHTML = '<img class="rounded-full w-10 h-10" src="https://w7.pngwing.com/pngs/268/1013/png-transparent-ethereum-eth-hd-logo-thumbnail.png" alt="avatar" /> <p class="text-5xl font-bold">ETH</p>'
+        } else if (token.value === 'LTC') {
+            cryptoChange.innerHTML = '<img class="rounded-full w-10 h-10" src="https://cryptologos.cc/logos/litecoin-ltc-logo.png" alt="avatar" /> <p class="text-5xl font-bold">LTC</p>'
+        }
+    };
+
+    btnCopy.onclick = () => {
+        navigator.clipboard.writeText(addressCopy.value);
+        btnCopy.innerHTML = 'Copied';
+        setTimeout(() => {
+            btnCopy.innerHTML = 'Copy';
+        }, 2500);
+    }
+</script>
+
+{% endblock body %}
