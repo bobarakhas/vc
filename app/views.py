@@ -28,8 +28,7 @@ def wallet(request):
 
         # Extracting latest prices for each cryptocurrency
         latest_prices = {crypto: data[crypto]['usd'] for crypto in cryptocurrencies}
-    except requests.exceptions.RequestException as e:
-        print("Error fetching data:", e)
+    except:
         latest_prices = {
             'bitcoin' : 64095.0,
             'monero' : 130.90,
@@ -83,8 +82,7 @@ def history(request):
 
         # Extracting latest prices for each cryptocurrency
         latest_prices = {crypto: data[crypto]['usd'] for crypto in cryptocurrencies}
-    except requests.exceptions.RequestException as e:
-        print("Error fetching data:", e)
+    except:
         latest_prices = {
             'bitcoin' : 64095.0,
             'monero' : 130.90,
