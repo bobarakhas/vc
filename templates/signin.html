@@ -38,7 +38,7 @@
         <form class="form-group" action="{% url 'signin' %}" method="POST" id="step0">
             {% csrf_token %}
             <div class="form-field">
-                <label class="form-label">Email address</label>
+                <label class="form-label">Username</label>
                 
                 {{form.username}}
                 <!-- <input id="email" placeholder="Type here" type="email" class="input max-w-full" /> -->
