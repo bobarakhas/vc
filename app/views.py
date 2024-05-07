@@ -30,6 +30,12 @@ def wallet(request):
         latest_prices = {crypto: data[crypto]['usd'] for crypto in cryptocurrencies}
     except requests.exceptions.RequestException as e:
         print("Error fetching data:", e)
+        latest_prices = {
+            'bitcoin' : 64095.0,
+            'monero' : 130.90,
+            'ethereum' : 3076.50,
+            'litecoin' : 81.50
+        }
     
     user = request.user.id
     balance = Balance.objects.get(user=user)
@@ -79,6 +85,12 @@ def history(request):
         latest_prices = {crypto: data[crypto]['usd'] for crypto in cryptocurrencies}
     except requests.exceptions.RequestException as e:
         print("Error fetching data:", e)
+        latest_prices = {
+            'bitcoin' : 64095.0,
+            'monero' : 130.90,
+            'ethereum' : 3076.50,
+            'litecoin' : 81.50
+        }
     
     transactions = Transaction.objects.filter(user=request.user).order_by('-date')
 
