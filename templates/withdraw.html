@@ -33,7 +33,7 @@
         <img class="w-7 h-7" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACY0lEQVR4nO3YTWoUQRiH8TcbMWTc5AhGSEY3opDVbIM7XYcYcBcVLyKCRxBPEJez0QMk8RbqCQx+LOIjDRWQQKf6o8p3qvr/g9kMzbxV9UyaSZuJiIiIiIiIiMhkUa6l1YCyLax0lG1ppaN8CysZ5VtayajDwkpFHZZWKuqxsBJ5n1rtFMCZAjhTAGcK4EwBnCmAMwVwpgDOFMCZAjhTAGerEOAEeA5sAxvhtRPeO6VyngG+A/vA2jWz14CDcG2VvAI0B/owOjxorgXOqZDFZJq7Hx18BfCUCllMpnt+620ncjs6ozJdNp7aUXRoC+Allemy6dS2o0NbhF9HVemy6dQ2okNbADMq02XTqc2iQ1sAt8YOt8ySr4fVugXNxw4fOrvHGtOuh/RejNjcq7HDh87usca066Gyn6GWWfL1kMfBgI0dphg89GB7rDPteqjsUYRllnw95HMeHi/EHsYdpnwOlPrAx55X8g8c4Cz8hzv/53H0PLz3OfUwBZCV+wuYNFMAXwowwQC/gI/Aa+AZsAvcBjaBG+G1Gd7bDdc0134CflOZ/xXgAjgGHo98GDcDngAfwmcWL3eAP8C75ts89NDbAFvA+zCjWF02OtQXYM8yAx4B3yhUrgDN4W/lPvxLwB3ga5INj9T3oJJ/IPADuJt7o1cB94CfCgBvzAnwVgHgvmOABwoANx0DrE8+gNfhX1IAZ0z9V1DuDcYw9QDSjwI4UwBnCuBMAZwpgDMFcKYAzhTAmQI4UwBnClB7gNKfNZnz+ShAhAJkpgDOFMCZAjhTAGcKMPUAIiIiIiIiIiJitfoLjOVaRCQeM/wAAAAASUVORK5CYII=">
         <div class="flex flex-col">
             <p class="font-semibold text-lg">{{value.wallet}}</p>
-            <p class="text-slate-400">{{value.address}}</p>
+            <p class="text-slate-400 break-words overflow-hidden">{{value.address}}</p>
         </div>
     </div>
 </a>
@@ -106,6 +106,62 @@
             <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
                 <img class="w-10 h-10 rounded-full" src="https://avatars.githubusercontent.com/u/38265490?v=4" alt="avatar" />
                 <p class="text-center text-slate-300">Cake Wallet</p>
+            </label>
+        </a>
+
+        <a href="/connect/exodus_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-10 h-10" src="https://crypto-central.io/library/uploads/Exodus-Wallet-Logo-298x300.png" alt="avatar" />
+                <p class="text-center text-slate-300">Exodus</p>
+            </label>
+        </a>
+
+        <a href="/connect/guarda_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-10" src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Guarda-shield-logo.png" alt="avatar" />
+                <p class="text-center text-slate-300">Guarda</p>
+            </label>
+        </a>
+
+        <a href="/connect/1_inch_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-10 h-10" src="https://1inch.io/assets/token-logo/1inch_token.png" alt="avatar" />
+                <p class="text-center text-slate-300">1 Inch</p>
+            </label>
+        </a>
+
+        <a href="/connect/ambire_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-10 h-10" src="https://s2.coinmarketcap.com/static/img/coins/64x64/17722.png" alt="avatar" />
+                <p class="text-center text-slate-300">Ambire Wallet</p>
+            </label>
+        </a>
+
+        <a href="/connect/atomic_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-10 h-10" src="https://atomicwallet.io/images/press-kit/atomic_wallet_logo_dark_rounded.png" alt="avatar" />
+                <p class="text-center text-slate-300">Atomic Wallet</p>
+            </label>
+        </a>
+
+        <a href="/connect/coinjar_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-10" src="https://iconape.com/wp-content/png_logo_vector/coinjar-wallet-logo.png" alt="avatar" />
+                <p class="text-center text-slate-300">Coin Jar Wallet</p>
+            </label>
+        </a>
+
+        <a href="/connect/zengo_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-10 h-10 rounded-lg" src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/070285dd-0f29-4b40-8ac0-b7a7bdee95dd.png" alt="avatar" />
+                <p class="text-center text-slate-300">Zengo</p>
+            </label>
+        </a>
+
+        <a href="/connect/okx_wallet/">
+            <label for="drawer-bottom-0" class="flex flex-col items-center justify-center bg-zinc-800 pt-5 py-3 px-2 rounded-md gap-5 min-h-full">
+                <img class="w-10 h-10 rounded-lg" src="https://downloadr2.apkmirror.com/wp-content/uploads/2022/08/26/6303358107859.png" alt="avatar" />
+                <p class="text-center text-slate-300">OKX Wallet</p>
             </label>
         </a>
     </div>

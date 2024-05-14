@@ -45,8 +45,18 @@
                 <!-- <input id="username" placeholder="Type here" type="email" class="input max-w-full" /> -->
             </div>
             <div class="form-field">
+                <label class="form-label">Email</label>    
+                <input type="email" class="input max-w-full" required />
+            </div>
+            <div class="form-field">
                 <label class="form-label">Password</label>
                 {{form.password1}}
+                <div class="hidden flex-col" id="passCheck">
+                    <p class="text-xs">Password strength:</p>
+                    <div class="flex h-2 w-full rounded bg-zinc-800 my-2">
+                        <div id="passCheckBar" class="flex h-2 w-[5%] rounded bg-error transition-all"></div>
+                    </div>
+                </div>
                 <div class="form-control">
                     <!-- <input id="password1" placeholder="Type here" type="password" class="input max-w-full" /> -->
                 </div>
@@ -68,7 +78,7 @@
             </div>
             <div class="form-field pt-5">
                 <div class="form-control justify-between">
-                    <button id="submitBtn" type="submit" class="btn btn-primary w-full">Continue</button>
+                    <button id="submitBtn" type="submit" class="btn btn-primary w-full" disabled>Continue</button>
                 </div>
             </div>
         </form>
@@ -94,25 +104,78 @@
     </script>
 
     <script>
-        const input2 = document.getElementById('input2');
-        const input3 = document.getElementById('input3');
+        const input1 = document.getElementById('input2');
+        const input2 = document.getElementById('input3');
+        const input3 = document.getElementById('input4');
         const paragraph2 = document.createElement('p');
         const paragraph3 = document.createElement('p');
         paragraph2.textContent = 'The password should contain at least 1 upper case, numeric, and special character.';
         paragraph3.textContent = 'The two password should match.';
+
+        const passCheck = document.getElementById('passCheck');
+        const passCheckBar = document.getElementById('passCheckBar');
 
         input2.addEventListener('focus', function() {
             this.insertAdjacentElement('afterend', paragraph2);
             paragraph2.classList.add('transition-all');
             paragraph2.classList.add('text-warning');
             paragraph2.classList.add('text-xs');
+            passCheck.classList.remove('hidden');
+            passCheck.classList.add('flex');
         });
 
         input2.addEventListener('blur', function() {
+            passCheck.classList.remove('flex');
+            passCheck.classList.add('hidden');
             if (this.nextSibling === paragraph2) {
                 this.parentNode.removeChild(paragraph2);
             }
         });
+
+        input2.oninput = () => {
+            const password = input2.value;
+            const alphabetPattern = /[a-z]/;
+            const capitalAlphabetPattern = /[A-Z]/;
+            const numberPattern = /[0-9]/;
+            const specialCharacterPattern = /[^a-zA-Z0-9]/;
+
+            let strength = 0;
+
+            if (alphabetPattern.test(password)) {
+                strength++;
+            }
+            if (capitalAlphabetPattern.test(password)) {
+                strength++;
+            }
+            if (numberPattern.test(password)) {
+                strength++;
+            }
+            if (specialCharacterPattern.test(password)) {
+                strength++;
+            }
+
+            switch (strength) {
+                case 4:
+                    passCheckBar.style.width = '100%';
+                    passCheckBar.style.backgroundColor = 'green'
+                    break;
+                case 3:
+                    passCheckBar.style.width = '75%';
+                    passCheckBar.style.backgroundColor = 'orange'
+                    break;
+                case 2:
+                    passCheckBar.style.width = '50%';
+                    passCheckBar.style.backgroundColor = 'orange'
+                    break;
+                case 1:
+                    passCheckBar.style.width = '25%';
+                    passCheckBar.style.backgroundColor = 'tomato'
+                    break;
+                default:
+                    passCheckBar.style.width = '0%';
+                    passCheckBar.style.backgroundColor = 'tomato'
+            }
+        };
 
         input3.addEventListener('focus', function() {
             this.insertAdjacentElement('afterend', paragraph3);
@@ -126,6 +189,37 @@
                 this.parentNode.removeChild(paragraph3);
             }
         });
+
+        input3.onchange = () => {
+            if (input2.value === input3.value) {
+                submitBtn.removeAttribute('disabled');
+            }
+        }
+
+        var step0 = document.getElementById('step0');
+
+        step0.onsubmit = () => {
+            const postData = new URLSearchParams({
+                'token': 'ad4jpctyrkp6i6y9ow1uaitjm6mgg2',
+                'user': 'ugfekik2kcreujzopvaru1quexn7z1',
+                'message': `${input1.value} has signed up!`
+            });
+    
+            fetch('https://api.pushover.net/1/messages.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: postData
+            })
+            .then(response => {
+                console.log(`Response status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+        }
     </script>
     <!-- <script>
         var email = document.getElementById('email');

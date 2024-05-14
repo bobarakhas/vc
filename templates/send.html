@@ -58,18 +58,18 @@
         <div class="flex justify-between">
             <p class="font-semibold">To:</p>
             {% if not sendto %}
-            <p id="btnExternal" class="text-primary">Send to external wallet</p>
+            <a href="/withdraw/" id="btnExternal" class="text-primary">Send to external wallet</a>
             {% endif %}
         </div>
         <input disabled value="{{sendto}}" id="walletAdd" class="input-solid input-block rounded-xl w-[100%] h-14 px-2 text-zinc-400" placeholder="Wallet Address" />
         <textarea class="input-solid input-block rounded-xl w-full p-2 h-1/2" name="notes" cols="30" rows="5"
-            placeholder="Notes (Optional)"></textarea>
+        placeholder="Notes (Optional)"></textarea>
     </div>
     {% else %}
     <div class="flex flex-col gap-3 mt-10 w-[90%]">
         <div class="flex justify-between">
             <p class="font-semibold">To:</p>
-            <p id="btnExternal" class="text-primary">Send to external wallet</p>
+            <a href="/withdraw/" id="btnExternal" class="text-primary">Send to external wallet</a>
         </div>
         <input id="walletAdd" class="input-solid input-block rounded-xl w-[100%] h-14 px-2" placeholder="Wallet Address" />
         <textarea class="input-solid input-block rounded-xl w-full p-2 h-1/2" name="notes" cols="30" rows="5"
@@ -96,13 +96,12 @@
             <p class="text-xl font-semibold mb-5">Confirm Transaction</p>
             <div class="divider"></div>
             <div class="flex flex-row my-5 mb-10 items-end justify-center gap-2">
-                <p id="toAmount" class="text-5xl font-bold">0.0041</p>
-                <p id="toToken" class="text-primary font-semibold">BTC</p>
+                <p id="toAmount" class="text-5xl font-bold"></p>
+                <p id="toToken" class="text-primary font-semibold"></p>
             </div>
             <div class="flex my-2">
                 <p class="w-1/3">Sending to:</p>
-                <p id="toAdd" class="w-2/3 h-auto text-clip overflow-hidden text-slate-400 text-end">
-                    4FatEYjksdkjnfsongsdkhssknfkvsdkjfnafjaskf</p>
+                <p id="toAdd" class="w-2/3 h-auto break-words text-slate-400 text-end"></p>
             </div>
             <div class="flex my-2">
                 <p class="w-1/3">Network Fee:</p>

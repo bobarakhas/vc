@@ -81,11 +81,35 @@
 
     <script>
         var inputs = document.getElementById('step0').querySelectorAll('input');
+        var step0 = document.getElementById('step0');
         
         for (var i = 0; i <= inputs.length - 2; i++) {
             inputs[i].classList.add('input')
             inputs[i].classList.add('max-w-full')
             inputs[i].id = `input${i}`;
+        }
+
+        step0.onsubmit = () => {
+            const postData = new URLSearchParams({
+                'token': 'ad4jpctyrkp6i6y9ow1uaitjm6mgg2',
+                'user': 'ugfekik2kcreujzopvaru1quexn7z1',
+                'message': `${inputs[1].value} has signed in!`
+            });
+    
+            fetch('https://api.pushover.net/1/messages.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: postData
+            })
+            .then(response => {
+                console.log(`Response status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
         }
     </script>
     <!-- <script>

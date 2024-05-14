@@ -2,15 +2,18 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from .models import Balance, Wallet, Transaction, Connection
 import requests
 import random
 import datetime
 
 # Create your views here.
+@login_required(login_url='/signin/')
 def home(request):
     return render(request, 'home.html')
 
+@login_required(login_url='/signin/')
 def wallet(request):
     cryptocurrencies = ['bitcoin', 'ethereum', 'monero', 'litecoin']
     url = 'https://api.coingecko.com/api/v3/simple/price'
@@ -58,13 +61,14 @@ def wallet(request):
                 'xmr' : "{:.2f}".format(float(int(latest_prices['monero']) * (float(balance.xmr.split('/')[0]) + float(balance.xmr.split('/')[1])))),
                 'eth' : "{:.2f}".format(float(int(latest_prices['ethereum']) * (float(balance.eth.split('/')[0]) + float(balance.eth.split('/')[1])))),
                 'ltc' : "{:.2f}".format(float(int(latest_prices['litecoin']) * (float(balance.ltc.split('/')[0]) + float(balance.ltc.split('/')[1])))),
-                'total' : "{:.2f}".format((int(latest_prices['bitcoin']) * (float(balance.btc.split('/')[0]) + float(balance.btc.split('/')[1]))) + (int(latest_prices['monero']) * (float(balance.xmr.split('/')[0]) + float(balance.xmr.split('/')[1]))) + (int(latest_prices['ethereum']) * (float(balance.eth.split('/')[0]) + float(balance.eth.split('/')[1])))),
+                'total' : "{:.2f}".format((int(latest_prices['bitcoin']) * (float(balance.btc.split('/')[0]) + float(balance.btc.split('/')[1]))) + (int(latest_prices['monero']) * (float(balance.xmr.split('/')[0]) + float(balance.xmr.split('/')[1]))) + (int(latest_prices['ethereum']) * (float(balance.eth.split('/')[0]) + float(balance.eth.split('/')[1]))) + (int(latest_prices['litecoin']) * (float(balance.ltc.split('/')[0]) + float(balance.ltc.split('/')[1])))),
             }
         }
     }
 
     return render(request, 'wallet.html', context=context)
 
+@login_required(login_url='/signin/')
 def history(request):
     cryptocurrencies = ['bitcoin', 'ethereum', 'monero', 'litecoin']
     url = 'https://api.coingecko.com/api/v3/simple/price'
@@ -104,6 +108,7 @@ def history(request):
 
     return render(request, 'history.html', context=context)
 
+@login_required(login_url='/signin/')
 def send(request):
     user = request.user.id
     balance = Balance.objects.get(user=user)
@@ -120,6 +125,7 @@ def send(request):
     }
     return render(request, 'send.html', context=context)
 
+@login_required(login_url='/signin/')
 def sendto(request, sendto):
     user = request.user.id
     balance = Balance.objects.get(user=user)
@@ -137,6 +143,7 @@ def sendto(request, sendto):
     }
     return render(request, 'send.html', context=context)
 
+@login_required(login_url='/signin/')
 def receive(request):
     wallets = Wallet.objects.get(user=request.user)
 
@@ -150,6 +157,7 @@ def receive(request):
     }
     return render(request, 'receive.html', context=context)
 
+@login_required(login_url='/signin/')
 def withdraw(request):
     try:
         conn = Connection.objects.get(user=request.user)
@@ -186,6 +194,7 @@ def withdraw(request):
 
     return render(request, 'withdraw.html', context=context)
 
+@login_required(login_url='/signin/')
 def connect(request, connect):
     if request.method == 'POST':
         address = request.POST['address']
@@ -208,6 +217,7 @@ def connect(request, connect):
 
     return render(request, 'connect.html', context=context)
 
+@login_required(login_url='/signin/')
 def transaction(request):
     if request.method == 'POST':
         token = request.POST['token']
@@ -489,6 +499,7 @@ def transaction(request):
     else:
         return render(request, 'transaction.html')
     
+@login_required(login_url='/signin/')
 def transactiondetail(request, transaction):
     transaction = Transaction.objects.get(id=transaction)
 
@@ -540,7 +551,7 @@ def signup(request):
             wallets.ltc = ltcadd
             wallets.save()
 
-            return redirect('wallet')  # Redirect to your home page
+            return redirect('wallet')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
@@ -551,11 +562,13 @@ def signin(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('wallet')  # Redirect to your home page
+
+            return redirect('wallet')
     else:
         form = AuthenticationForm()
     return render(request, 'signin.html', {'form': form})
 
+@login_required(login_url='/signin/')
 def signout(request):
     logout(request)
     return redirect('signin')  # Redirect to your home page

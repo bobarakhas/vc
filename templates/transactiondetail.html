@@ -20,8 +20,13 @@
     <p class="text-slate-400">Transaction Successful</p>
     <p class="text-xl font-semibold">Transaction Details:</p>
     <div class="flex flex-col bg-zinc-800 p-5 m-5 rounded-lg w-[90%]">
+        {% if '-' in transaction.amount %}
         <p>Sent to:</p>
+        <p class="text-slate-400 break-words">{{transaction.address}}</p>
+        {% else %}
+        <p>Received in:</p>
         <p class="text-slate-400">{{transaction.address}}</p>
+        {% endif %}
         
         <div class="divider"></div>
         

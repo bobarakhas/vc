@@ -26,8 +26,9 @@
     </label>
     <label class="overlay" for="drawer-bottom"></label>
     <div class="drawer drawer-bottom">
-        <div class="drawer-content flex flex-col gap-5 py-10">
+        <div class="drawer-content flex flex-col gap-5 pb-10">
             <label for="drawer-bottom" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+            <p class="pb-3 font-bold text-xl">{{request.user}}</p>
             <a class="hover:bg=zinc-500" href="/send/">Send</a>
             <a class="hover:bg=zinc-500" href="/receive/">Receive</a>
             <a class="hover:bg=zinc-500" href="/withdraw/">Withdraw</a>
